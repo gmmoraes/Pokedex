@@ -55,21 +55,6 @@ final class FavoritePokemonViewModel {
         return true
     }
 
-
-    
-    // MARK: - Private methods
-    
-    private func downloadImage(model: PokemonInformationModel, urlStr: String) {
-        guard let url = URL(string: urlStr) else {
-            return
-        }
-        let requestInfo = ImageDownloaderRequestInfo(id: model.id, url: url)
-        ImageDownloader.shared.loadImage(requestInfo: requestInfo) { [weak self] image in
-            self?.pokemonImage?(image)
-            self?.coreDataManager.updatePokemonImage(model: model, image: image)
-        }
-    }
-
 }
 
 extension FavoritePokemonViewModel: FavoritePokemonViewModelProtocol {
@@ -111,10 +96,5 @@ extension FavoritePokemonViewModel: FavoritePokemonViewModelProtocol {
                 completionHandler(.failure(error))
             }
         }
-
-//
-//        if model.sprites.image == nil {
-//            downloadImage(model: model, urlStr: model.sprites.other.officialArtwork.url)
-//        }
     }
 }
