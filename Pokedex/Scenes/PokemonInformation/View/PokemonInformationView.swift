@@ -86,9 +86,6 @@ class PokemonInformationView: UIView {
     init(viewModel: PokemonInformationViewModelProtocol) {
         self.viewModel = viewModel
         super.init(frame: CGRect.zero)
-        
-        startSpinnerView()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -98,6 +95,7 @@ class PokemonInformationView: UIView {
     // MARK: - Methods
     
     func bindView() {
+        startSpinnerView()
         bindViewModel()
         bindToPokemonImage()
     }
@@ -145,7 +143,7 @@ class PokemonInformationView: UIView {
     }
     
     private func startSpinnerView() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.async {
             self.child.view.frame = self.frame
             self.addSubview(self.child.view)
 
@@ -158,7 +156,7 @@ class PokemonInformationView: UIView {
     }
     
     private func stopSpinnerView() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.async {
             self.child.willMove(toParent: nil)
             self.child.view.removeFromSuperview()
             self.child.removeFromParent()
